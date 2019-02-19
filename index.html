@@ -1,43 +1,64 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  	<meta charset="UTF-8">
-  	<title>Giftastic Movies!</title>
-  	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-	<link rel="stylesheet" type="text/css" href="assets/style.css">
-	<link href="https://fonts.googleapis.com/css?family=Abril+Fatface|Sigmar+One|Special+Elite" rel="stylesheet">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GifTastic</title>
+
+    <!-- Added link to the jQuery Library -->
+    <!-- <script src="https://code.jquery.com/jquery-3.1.1.js"></script> -->
+    
+    <!-- Added a link to Bootstrap-->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+
+    <link rel="stylesheet" type="text/css" href="assets/style.css">
+
 </head>
 <body>
-	<div class="container">
-		<div class="jumbotron text-center">
-			<h1>Obsess Over Your Favorite Movies</h1>
-		</div>
-		<div class="row">
-			<div class="col-sm-8">
-				<div id="movie-buttons">
 
-				</div>
-			</div>
-			<div class="col-sm-4">
-				<form id="form">
-					<label for="movie-input">Add a movie</label><br>
-					<input type="text" id="movie-input">
-					<input id="add-movie" type="submit" value="Submit">
-				</form>
-			</div>
+<div class="container-fluid">
 
-			<div class="row">
-				<div class="col-sm-8">
-					<div id="movies">
-					</div>
+    <div class="row header">
+
+        <!-- Button Panel -->
+        <div class="col-lg-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Available Buttons: </h3>
+                </div>
+
+                <div class="panel-body button-display">
+                    <!-- <button id="button-1" type='button' class="btn btn-sm" value=1></button> -->
+                </div>
+
+            </div>
+        </div>
+     
+    </div>
+
+    <div class="row">
+			<div class="col-lg-4">
+					<form id="movie-form">
+						<!-- <label for="movie-input">Add a Movie</label> -->               
+						<!-- Button triggers new movie to be added -->
+						<button id="add-movie" class="btn btn-md" type="submit" 
+								value="Add a car Brand- make it speedy!">Add a MOVIE!!!!</button>
+						<input type="text" id="movie-input"><br>
+		
+					</form>
 				</div>
-			</div>
-		</div>
-	</div>
-	<script type="text/javascript" src="https://code.jquery.com/jquery-2.2.0.js">
-	</script>
-	<script type="text/javascript" src="assets/app.js">
-	</script>
+
+        <!-- Result Panel -->
+        <div class="col-lg-8">
+            <div id="images">
+            </div>           
+        </div>
+
+       
+</div>
+
+<script src="https://code.jquery.com/jquery-3.1.1.js"></script>
+<script type="text/javascript" src="assets/app.js"></script>
+
 </body>
 </html>

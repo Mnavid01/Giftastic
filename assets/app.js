@@ -1,81 +1,103 @@
-$(document).ready(function () {
-	var movies = ["Mean Girls", "Clueless", "John Tucker Must Die", "Teenage Drama Queen", "Legally Blonde", "Cruel Intentions", "Blue Crush", "10 Things I Hate About You"];
+var movies = ["Cruel Intentions", 
+            "Clueless", 
+            "Blue Crush", 
+            "Freaky Friday",
+            "Mean Girls",
+            "Princess Diaries",
+            "Legally Blonde",
+            "Princess Bride",
+            "She's The Man",
+            "Love and Basketball",
+            "Sex and The City"];
 
-	// Add buttons for original movies array
-	function renderButtons() {
-		$("#movie-buttons").empty();
-		for (i = 0; i < movies.length; i++) {
-			$("#movie-buttons").append("<button class='btn btn-success' data-movie='" + movies[i] + "'>" + movies[i] + "</button>");
-		}
-	}
+      // Function for displaying data
+function renderButtons() {
 
-	renderButtons();
+  $(".button-display").empty();
 
-	// Adding a button for movie entered
-	$("#add-movie").on("click", function () {
-		event.preventDefault();
-		var movie = $("#movie-input").val().trim();
-		movies.push(movie);
-		renderButtons();
-		return;
-	});
+  for (var i = 0; i < movies.length; i++) {
+    var a = $("<button>");
+    a.addClass("clicker btn btn-primary");
+    a.attr("data-name", movies[i]);
+    a.text(movies[i]);
+    $(".button-display").append(a);
+    console.log('movie array =' + movies + '-');
+  }
+}
 
+renderButtons();
 
-	// Getting gifs from api... onto html
-	$("button").on("click", function () {
-		var movie = $(this).attr("data-movie");
-		var queryURL = "https://api.giphy.com/v1/gifs/search?q=" +
-			movie + "&api_key=dc6zaTOxFJmzC&limit=10"
+$("body").on("click", '#add-movie', function(event) {
 
-		$.ajax({
-			url: queryURL,
-			method: "GET"
-		}).done(function (response) {
-			var results = response.data;
-			$("#movies").empty();
-			for (var i = 0; i < results.length; i++) {
-				var movieDiv = $("<div>");
-				var p = $("<p>").text("Rating: " + results[i].rating);
-				var movieImg = $("<img>");
+  event.preventDefault();
+  var movie = $("#movie-input").val().trim();
+  if (movie == '') {
+    alert('FIND YOUR FAV FLICK!')
+  }
+  else {
+    movies.push(movie);
+    console.log('movie array =' + movies + '-');
+    $("#movie-input").val('')
+    renderButtons();
+  }
+});
 
-				movieImg.attr("src", results[i].images.original_still.url);
-				movieImg.attr("data-still", results[i].images.original_still.url);
-				movieImg.attr("data-animate", results[i].images.original.url);
-				movieImg.attr("data-state", "still");
-				movieImg.attr("class", "gif");
-				movieDiv.append(p);
-				movieDiv.append(movieImg);
-				$("#movies").append(movieDiv);
-			}
-		});
-	});
+$("body").on("click", '.clicker', function() {
+  
+  var movie = $(this).attr("data-name");
+  console.log("data-name -" + movie + "-");
 
-	function changeState(){
-		var state = $(this).attr("data-state");
-		var animateImage = $(this).attr("data-animate");
-		var stillImage = $(this).attr("data-still");
+  var queryURL = "https://api.giphy.com/v1/gifs/search?q=" +
+    movie + "&api_key=dc6zaTOxFJmzC&limit=10";
+  console.log("query -" + queryURL + "-");
 
-		if (state == "still") {
-			$(this).attr("src", animateImage);
-			$(this).attr("data-state", "animate");
-		}
+  $.ajax({
+      url: queryURL,
+      method: "GET"
+    })
+    .done(function(response) {
 
-		else if (state == "animate") {
-			$(this).attr("src", stillImage);
-			$(this).attr("data-state", "still");
-		}
-	}
+      var results = response.data;
+      console.log(response);
+      $('#images').empty();
 
-	// $("img").on("click", function() {
-	// 	console.log("click worked!");
-	// 	var src = movieImg.attr(src);
-	// 	src = src.substring(0, src.length - 10);
-	// 	src += ".url";
-	// 	console.log(src);
-	// 	movieImg.attr("src", src);
-	// });
+      for (var i = 0; i < results.length; i++) {
+        var gifDiv = $("<div class='item'>");
+        var rating = results[i].rating;
+        var p = $('<p>')
+          .append('<span class="label label-lg label-info">Rating: <span class="badge">' + rating + '</span></span>');
+//         <button class="btn btn-primary" type="button">
+//   Messages <span class="badge">4</span>
+// </button>
 
-	// $(document).on("click", "#input", displayImg);
-	$(document).on("click", ".gif", changeState);
+        var movieImage = $("<img class='img-thumbnail'>");
+        var movieUrl = results[i].images.fixed_height.url;
+        var movieStill = results[i].images.fixed_height_still.url;
+        movieImage.attr({
+            src: movieStill,
+            'data-still': movieStill,
+            'data-animate': movieUrl,
+            'data-state':"still"
+        });
 
+        gifDiv.prepend(p);
+        gifDiv.prepend(movieImage);
+
+        $("#images").prepend(gifDiv);
+      };
+    });
+});
+
+$("body").on("click", '.img-thumbnail', function() {
+
+  var state = $(this).attr('data-state');
+
+  if (state == 'still') {
+    $(this).attr('src', $(this).attr('data-animate'));
+    $(this).attr('data-state', 'animate');
+  }
+  else {
+    $(this).attr('src', $(this).attr('data-still'));
+    $(this).attr('data-state', 'still');
+  }
 });

@@ -1,21 +1,27 @@
-/* .container{
-	padding-top: 5%;
-} */
-
-.jumbotron{
-	/*padding: 1%;*/
-	background-color: pink;
-	color: #ffffff;
+* {
+	font-size: 18px;
+	background: pink
 }
 
-#movies{
-	padding: 3%;
+.header {
+	margin-top: 20px;
+	background: pink
 }
 
-div{
-	margin-bottom: 2%;
+.item {
+	display: inline-block;
+	background: pink
+}
+
+.clicker {
+	margin: 5px;
+}
+
+img, p {
+	margin: 5px;
+	background: pink
 }
 
 body {
-   background: pink; 
+	background: pink; 
 }
